@@ -9,22 +9,20 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #fdf0f3;
-      --bg2:       #fae6eb;
-      --bg3:       #f5d5de;
-      --rose:      #e8a0b0;
-      --rose2:     #d4708a;
-      --rose3:     #c05070;
-      --petal:     #f9c5d1;
-      --blush:     #fce8ed;
-      --text:      #4a2030;
-      --text2:     #7a4558;
-      --muted:     #b07888;
-      --border:    rgba(212,112,138,0.2);
-      --glass:     rgba(253,240,243,0.75);
-      --green:     #7bbf9e;
-      --orange:    #e09878;
-      --white:     #fff8fa;
+      --bg:     #fdf0f3;
+      --bg2:    #fae6eb;
+      --bg3:    #f5d5de;
+      --rose:   #e8a0b0;
+      --rose2:  #d4708a;
+      --rose3:  #c05070;
+      --petal:  #f9c5d1;
+      --blush:  #fce8ed;
+      --text:   #4a2030;
+      --muted:  #b07888;
+      --border: rgba(212,112,138,0.2);
+      --green:  #7bbf9e;
+      --orange: #e09878;
+      --white:  #fff8fa;
     }
 
     html { scroll-behavior: smooth; }
@@ -55,128 +53,188 @@
       pointer-events: none; z-index: 0;
     }
 
-    .wrapper { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    .wrapper {
+      position: relative; z-index: 1;
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 16px;
+    }
 
     /* ── Header ── */
-    header { padding: 52px 0 36px; border-bottom: 1px solid var(--border); margin-bottom: 40px; }
+    header {
+      padding: 28px 0 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
 
     .header-inner {
-      display: flex; align-items: flex-end;
-      justify-content: space-between; gap: 24px; flex-wrap: wrap;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 12px;
+      flex-wrap: nowrap;
     }
 
-    .brand { display: flex; align-items: center; gap: 18px; }
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
 
     .brand-icon {
-      width: 56px; height: 56px;
+      width: 44px; height: 44px; flex-shrink: 0;
       background: linear-gradient(135deg, var(--rose), var(--petal));
-      border-radius: 18px;
+      border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 26px;
-      box-shadow: 0 8px 32px rgba(212,112,138,0.3), 0 2px 8px rgba(212,112,138,0.2);
-      flex-shrink: 0;
+      font-size: 20px;
+      box-shadow: 0 6px 24px rgba(212,112,138,0.3);
     }
+
+    .brand-text { min-width: 0; }
 
     h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(24px, 4vw, 40px);
+      font-size: clamp(18px, 5vw, 38px);
       font-weight: 600; line-height: 1.1; color: var(--text);
+      white-space: nowrap;
     }
 
     h1 span {
       display: block;
       font-family: 'Jost', sans-serif;
-      font-size: 12px; font-weight: 500;
-      color: var(--rose2);
-      letter-spacing: 0.18em;
+      font-size: clamp(9px, 2vw, 12px);
+      font-weight: 500; color: var(--rose2);
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
     }
 
     .status-badge {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 13px; color: var(--muted);
-      padding: 9px 18px;
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--muted);
+      padding: 7px 12px;
       border: 1px solid var(--border);
       border-radius: 100px;
       background: var(--white);
       box-shadow: 0 2px 12px rgba(212,112,138,0.1);
-      white-space: nowrap;
+      white-space: nowrap; flex-shrink: 0;
     }
 
     .status-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 8px var(--green);
-      animation: pulse 2s infinite;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 6px var(--green);
+      animation: pulse 2s infinite; flex-shrink: 0;
     }
+
+    /* Hide status text on very small screens */
+    @media (max-width: 380px) { .status-text { display: none; } }
 
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
 
-    /* ── Stats ── */
+    /* ── Stats: 2x2 grid on mobile ── */
     .stats-bar {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 16px; margin-bottom: 32px;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px; margin-bottom: 20px;
+    }
+
+    @media (min-width: 640px) {
+      .stats-bar { grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
     }
 
     .stat-card {
       background: var(--white);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px 22px;
-      box-shadow: 0 4px 20px rgba(212,112,138,0.08);
-      opacity: 0; transform: translateY(14px);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 3px 16px rgba(212,112,138,0.08);
+      opacity: 0; transform: translateY(12px);
       transition: opacity 0.4s, transform 0.4s;
     }
 
     .stat-card.visible { opacity: 1; transform: translateY(0); }
 
-    .stat-card:hover {
-      box-shadow: 0 8px 32px rgba(212,112,138,0.16);
-      transform: translateY(-2px);
-      transition: all 0.2s;
-    }
-
     .stat-label {
-      font-size: 11px; font-weight: 500; color: var(--muted);
-      text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px;
+      font-size: 10px; font-weight: 500; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;
     }
 
     .stat-value {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 28px; font-weight: 600; color: var(--rose2); line-height: 1;
+      font-size: clamp(20px, 5vw, 28px);
+      font-weight: 600; color: var(--rose2); line-height: 1;
     }
 
-    .stat-sub { font-size: 12px; color: var(--muted); margin-top: 5px; }
+    .stat-sub {
+      font-size: 11px; color: var(--muted); margin-top: 4px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
 
-    /* ── Filters ── */
+    /* ── Filters: collapsible on mobile ── */
     .filters-section {
       background: var(--white);
       border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 22px 26px;
-      margin-bottom: 24px;
-      box-shadow: 0 4px 20px rgba(212,112,138,0.07);
+      border-radius: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 16px rgba(212,112,138,0.07);
+      overflow: hidden;
     }
 
-    .filters-title {
-      font-size: 11px; font-weight: 500; color: var(--rose2);
-      text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px;
+    .filters-toggle {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px;
+      cursor: pointer; user-select: none;
+      border: none; background: transparent;
+      width: 100%; text-align: left;
+    }
+
+    .filters-toggle-label {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 600; color: var(--rose2);
+      text-transform: uppercase; letter-spacing: 0.13em;
+    }
+
+    .filters-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--rose2); color: white;
+      font-size: 10px; font-weight: 700;
+      opacity: 0; transition: opacity 0.2s;
+    }
+
+    .filters-badge.active { opacity: 1; }
+
+    .filters-arrow {
+      font-size: 11px; color: var(--muted);
+      transition: transform 0.25s;
+    }
+
+    .filters-arrow.open { transform: rotate(180deg); }
+
+    .filters-body {
+      padding: 0 18px;
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .filters-body.open {
+      max-height: 600px;
+      padding: 0 18px 18px;
     }
 
     .filters-grid {
       display: grid;
-      grid-template-columns: 2fr repeat(4, 1fr);
-      gap: 12px; align-items: end;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
     }
 
-    @media (max-width: 768px) { .filters-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 480px) { .filters-grid { grid-template-columns: 1fr; } }
+    @media (min-width: 768px) {
+      .filters-grid { grid-template-columns: 2fr repeat(4,1fr); }
+    }
+
+    .filter-group { display: flex; flex-direction: column; }
+
+    /* Search bar spans full width on mobile */
+    .filter-group.full { grid-column: 1 / -1; }
 
     .filter-group label {
-      display: block; font-size: 11px; font-weight: 500; color: var(--muted);
-      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 7px;
+      font-size: 10px; font-weight: 600; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;
     }
 
     .filter-group input,
@@ -184,8 +242,10 @@
       width: 100%; background: var(--bg);
       border: 1px solid var(--border); border-radius: 10px;
       color: var(--text); font-family: 'Jost', sans-serif;
-      font-size: 14px; padding: 10px 13px; outline: none;
+      font-size: 15px; /* 15px prevents iOS auto-zoom */
+      padding: 11px 13px; outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none; appearance: none;
     }
 
     .filter-group input::placeholder { color: var(--muted); opacity: 0.6; }
@@ -200,38 +260,42 @@
     .filter-group select option { background: var(--white); color: var(--text); }
 
     .btn-reset {
-      background: transparent; border: 1px solid var(--border);
-      color: var(--muted); font-family: 'Jost', sans-serif;
-      font-size: 13px; font-weight: 500;
-      padding: 10px 16px; border-radius: 10px;
-      cursor: pointer; transition: all 0.2s; white-space: nowrap;
+      background: var(--blush); border: 1px solid var(--border);
+      color: var(--rose2); font-family: 'Jost', sans-serif;
+      font-size: 13px; font-weight: 600;
+      padding: 11px 16px; border-radius: 10px;
+      cursor: pointer; transition: all 0.2s;
+      grid-column: 1 / -1;
     }
 
-    .btn-reset:hover { border-color: var(--rose2); color: var(--rose2); background: var(--blush); }
+    .btn-reset:active { background: var(--bg3); }
 
-    /* ── Table ── */
+    /* ── Table wrapper ── */
     .table-wrapper {
       background: var(--white); border: 1px solid var(--border);
-      border-radius: 18px; overflow: hidden;
+      border-radius: 16px; overflow: hidden;
       box-shadow: 0 4px 24px rgba(212,112,138,0.08);
     }
 
     .table-header-bar {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 24px; border-bottom: 1px solid var(--border);
-      background: var(--blush); flex-wrap: wrap; gap: 12px;
+      padding: 12px 16px; border-bottom: 1px solid var(--border);
+      background: var(--blush); flex-wrap: wrap; gap: 6px;
     }
 
     .results-count { font-size: 13px; color: var(--muted); }
     .results-count strong { color: var(--rose2); font-weight: 600; }
-    .sort-hint { font-size: 11px; color: var(--muted); opacity: 0.7; }
+    .sort-hint { font-size: 11px; color: var(--muted); opacity: 0.6; }
 
-    .table-scroll { overflow-x: auto; }
+    /* ── DESKTOP TABLE (hidden on mobile) ── */
+    .desktop-table { display: none; overflow-x: auto; }
+
+    @media (min-width: 768px) { .desktop-table { display: block; } }
 
     table { width: 100%; border-collapse: collapse; font-size: 14px; }
 
     thead th {
-      background: var(--bg2); padding: 13px 16px;
+      background: var(--bg2); padding: 12px 14px;
       text-align: left; font-size: 11px; font-weight: 600;
       text-transform: uppercase; letter-spacing: 0.1em; color: var(--rose2);
       white-space: nowrap; cursor: pointer; user-select: none;
@@ -239,28 +303,83 @@
     }
 
     thead th:hover { background: var(--bg3); }
-    thead th .sort-icon { margin-left: 5px; opacity: 0.4; font-size: 10px; }
-    thead th.sort-asc  .sort-icon::after { content: '▲'; opacity: 1; }
-    thead th.sort-desc .sort-icon::after { content: '▼'; opacity: 1; }
-    thead th:not(.sort-asc):not(.sort-desc) .sort-icon::after { content: '⇅'; }
+    thead th .si { margin-left: 4px; opacity: 0.4; font-size: 10px; }
+    thead th.sort-asc  .si::after { content: '▲'; opacity: 1; }
+    thead th.sort-desc .si::after { content: '▼'; opacity: 1; }
+    thead th:not(.sort-asc):not(.sort-desc) .si::after { content: '⇅'; }
 
     tbody tr {
       border-bottom: 1px solid rgba(212,112,138,0.08);
       transition: background 0.15s;
-      opacity: 0; animation: fadeRow 0.35s forwards;
+      opacity: 0; animation: fadeIn 0.3s forwards;
     }
 
-    @keyframes fadeRow { to { opacity: 1; } }
+    @keyframes fadeIn { to { opacity: 1; } }
 
     tbody tr:hover { background: var(--blush); }
     tbody tr:last-child { border-bottom: none; }
 
-    td { padding: 13px 16px; vertical-align: middle; }
-    .td-entidad { font-weight: 500; color: var(--text); }
+    td { padding: 12px 14px; vertical-align: middle; }
+    .td-entidad { font-weight: 500; }
 
+    /* ── MOBILE CARDS (hidden on desktop) ── */
+    .mobile-cards { display: block; padding: 8px; }
+
+    @media (min-width: 768px) { .mobile-cards { display: none; } }
+
+    .entity-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      opacity: 0; animation: fadeIn 0.3s forwards;
+      box-shadow: 0 2px 12px rgba(212,112,138,0.06);
+    }
+
+    .entity-card:last-child { margin-bottom: 0; }
+
+    .card-top {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .card-name {
+      font-weight: 600; font-size: 14px; color: var(--text);
+      line-height: 1.3; flex: 1;
+    }
+
+    .card-rates {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px; margin-bottom: 10px;
+    }
+
+    .card-rate { text-align: center; }
+
+    .card-rate-label {
+      font-size: 10px; font-weight: 600; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      display: block; margin-bottom: 3px;
+    }
+
+    .card-rate-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 600; line-height: 1;
+    }
+
+    .card-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid rgba(212,112,138,0.1);
+    }
+
+    .card-date { font-size: 11px; color: var(--muted); }
+
+    /* Shared styles */
     .chip {
-      display: inline-block; font-size: 11px; font-weight: 500;
-      padding: 4px 11px; border-radius: 100px; white-space: nowrap;
+      display: inline-block; font-size: 10px; font-weight: 600;
+      padding: 3px 10px; border-radius: 100px; white-space: nowrap;
     }
 
     .chip-banco-publico  { background: rgba(123,191,158,0.15); color: #5a9e80; border: 1px solid rgba(123,191,158,0.35); }
@@ -272,50 +391,76 @@
     .chip-puesto-bolsa   { background: rgba(180,140,200,0.12); color: #8050a0; border: 1px solid rgba(180,140,200,0.3); }
     .chip-default        { background: rgba(176,120,136,0.1);  color: var(--muted); border: 1px solid var(--border); }
 
-    .num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 18px; font-weight: 600; letter-spacing: -0.01em;
-    }
-
+    .num { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; }
     .num-compra { color: #5a9e80; }
     .num-venta  { color: #c07060; }
-    .num-dif    { color: var(--muted); font-size: 16px; font-weight: 400; }
+    .num-dif    { color: var(--muted); font-size: 15px; font-weight: 400; }
     .td-fecha   { font-size: 12px; color: var(--muted); white-space: nowrap; }
 
-    .empty-state { padding: 72px 24px; text-align: center; }
-    .empty-icon  { font-size: 44px; margin-bottom: 16px; opacity: 0.35; }
-    .empty-text  { color: var(--muted); font-size: 15px; }
+    /* ── Mobile sort bar ── */
+    .mobile-sort {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 16px; border-bottom: 1px solid var(--border);
+      background: var(--bg2); overflow-x: auto; scrollbar-width: none;
+    }
 
-    .loading-overlay { padding: 80px 24px; text-align: center; }
+    .mobile-sort::-webkit-scrollbar { display: none; }
+
+    @media (min-width: 768px) { .mobile-sort { display: none; } }
+
+    .mobile-sort-label { font-size: 11px; color: var(--muted); flex-shrink: 0; }
+
+    .sort-pill {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; font-weight: 500;
+      padding: 5px 12px; border-radius: 100px; flex-shrink: 0;
+      border: 1px solid var(--border); background: var(--white);
+      color: var(--text2); cursor: pointer; transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .sort-pill.active {
+      background: var(--rose2); color: white; border-color: var(--rose2);
+    }
+
+    /* ── Loading / Empty / Error ── */
+    .loading-overlay { padding: 60px 24px; text-align: center; }
 
     .spinner {
-      width: 40px; height: 40px;
+      width: 36px; height: 36px;
       border: 3px solid var(--border); border-top-color: var(--rose2);
       border-radius: 50%; animation: spin 0.8s linear infinite;
-      margin: 0 auto 16px;
+      margin: 0 auto 14px;
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
-
     .loading-text { color: var(--muted); font-size: 14px; }
 
+    .empty-state { padding: 56px 24px; text-align: center; }
+    .empty-icon  { font-size: 40px; margin-bottom: 12px; opacity: 0.35; }
+    .empty-text  { color: var(--muted); font-size: 14px; }
+
     .error-box {
-      padding: 20px 24px; background: rgba(224,120,100,0.07);
+      padding: 18px 20px; margin: 16px;
+      background: rgba(224,120,100,0.07);
       border: 1px solid rgba(224,120,100,0.25); border-radius: 12px;
-      margin: 24px; color: #c07060; font-size: 14px;
-      display: flex; align-items: center; gap: 12px;
+      color: #c07060; font-size: 14px;
+      display: flex; align-items: center; gap: 10px;
     }
 
+    /* ── Footer ── */
     footer {
-      padding: 32px 0 28px; margin-top: 40px;
+      padding: 24px 0 32px; margin-top: 24px;
       border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
       display: flex; align-items: center;
       justify-content: space-between; flex-wrap: wrap; gap: 12px;
     }
 
     .footer-text { font-size: 12px; color: var(--muted); }
     .footer-text a { color: var(--rose2); text-decoration: none; font-weight: 500; }
-    .footer-text a:hover { text-decoration: underline; }
 
     .btn-refresh {
       display: flex; align-items: center; gap: 8px;
@@ -324,12 +469,15 @@
       font-size: 13px; font-weight: 600;
       padding: 11px 22px; border: none; border-radius: 100px;
       cursor: pointer; box-shadow: 0 4px 16px rgba(212,112,138,0.35);
-      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+      transition: opacity 0.2s, transform 0.2s;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .btn-refresh:hover { opacity: 0.92; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,112,138,0.4); }
+    .btn-refresh:hover { opacity: 0.92; transform: translateY(-1px); }
+    .btn-refresh:active { transform: scale(0.97); }
     .btn-refresh.spinning svg { animation: spin 0.8s linear infinite; }
 
+    /* Petals */
     .petal {
       position: fixed; border-radius: 50% 0 50% 0;
       pointer-events: none; z-index: 0;
@@ -347,39 +495,39 @@
 <body>
 
 <script>
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 8; i++) {
     const p = document.createElement('div');
     p.className = 'petal';
-    const r = (min,max) => min + Math.random()*(max-min);
-    p.style.cssText = `
-      left:${r(0,100)}%;
-      width:${r(8,16)}px; height:${r(12,20)}px;
-      animation-duration:${r(14,24)}s;
-      animation-delay:${r(0,20)}s;
-      background:rgba(${Math.floor(r(220,248))},${Math.floor(r(140,190))},${Math.floor(r(160,200))},${r(0.2,0.45)});
-    `;
+    const r = (a,b) => a + Math.random()*(b-a);
+    p.style.cssText = `left:${r(0,100)}%;width:${r(7,14)}px;height:${r(11,18)}px;
+      animation-duration:${r(14,26)}s;animation-delay:${r(0,22)}s;
+      background:rgba(${~~r(220,248)},${~~r(140,190)},${~~r(160,205)},${r(0.18,0.4)});`;
     document.body.appendChild(p);
   }
 </script>
 
 <div class="wrapper">
 
+  <!-- Header -->
   <header>
     <div class="header-inner">
       <div class="brand">
         <div class="brand-icon">🌸</div>
-        <h1>
-          <span>Banco Central de Costa Rica</span>
-          Tipos de Cambio
-        </h1>
+        <div class="brand-text">
+          <h1>
+            <span>Banco Central de Costa Rica</span>
+            Tipos de Cambio
+          </h1>
+        </div>
       </div>
       <div class="status-badge">
         <div class="status-dot" id="statusDot"></div>
-        <span id="statusText">Conectando...</span>
+        <span class="status-text" id="statusText">Conectando...</span>
       </div>
     </div>
   </header>
 
+  <!-- Stats 2x2 on mobile, 4 cols on desktop -->
   <div class="stats-bar">
     <div class="stat-card" id="s0">
       <div class="stat-label">Fecha</div>
@@ -389,7 +537,7 @@
     <div class="stat-card" id="s1">
       <div class="stat-label">Entidades</div>
       <div class="stat-value" id="valTotal">—</div>
-      <div class="stat-sub">intermediarios cambiarios</div>
+      <div class="stat-sub">intermediarios</div>
     </div>
     <div class="stat-card" id="s2">
       <div class="stat-label">Mejor Compra</div>
@@ -403,37 +551,54 @@
     </div>
   </div>
 
+  <!-- Filters: collapsible -->
   <div class="filters-section">
-    <div class="filters-title">🌷 Filtros</div>
-    <div class="filters-grid">
-      <div class="filter-group">
-        <label>Buscar entidad</label>
-        <input type="text" id="filterNombre" placeholder="Ej: Banco Nacional, BAC..."/>
-      </div>
-      <div class="filter-group">
-        <label>Categoría</label>
-        <select id="filterCategoria"><option value="">Todas</option></select>
-      </div>
-      <div class="filter-group">
-        <label>Compra mínima (₡)</label>
-        <input type="number" id="filterCompraMin" placeholder="Ej: 460"/>
-      </div>
-      <div class="filter-group">
-        <label>Venta máxima (₡)</label>
-        <input type="number" id="filterVentaMax" placeholder="Ej: 490"/>
-      </div>
-      <div class="filter-group">
-        <label>&nbsp;</label>
-        <button class="btn-reset" id="btnReset">✕ Limpiar</button>
+    <button class="filters-toggle" id="filtersToggle" aria-expanded="false">
+      <span class="filters-toggle-label">
+        🌷 Filtros
+        <span class="filters-badge" id="filtersBadge">0</span>
+      </span>
+      <span class="filters-arrow" id="filtersArrow">▼</span>
+    </button>
+    <div class="filters-body" id="filtersBody">
+      <div class="filters-grid">
+        <div class="filter-group full">
+          <label>Buscar entidad</label>
+          <input type="text" id="filterNombre" placeholder="Ej: Banco Nacional, BAC..." autocomplete="off"/>
+        </div>
+        <div class="filter-group">
+          <label>Categoría</label>
+          <select id="filterCategoria"><option value="">Todas</option></select>
+        </div>
+        <div class="filter-group">
+          <label>Compra mínima (₡)</label>
+          <input type="number" id="filterCompraMin" placeholder="Ej: 460" inputmode="decimal"/>
+        </div>
+        <div class="filter-group">
+          <label>Venta máxima (₡)</label>
+          <input type="number" id="filterVentaMax" placeholder="Ej: 490" inputmode="decimal"/>
+        </div>
+        <button class="btn-reset" id="btnReset">✕ Limpiar filtros</button>
       </div>
     </div>
   </div>
 
+  <!-- Table / Cards -->
   <div class="table-wrapper">
     <div class="table-header-bar">
       <div class="results-count" id="resultsCount">Cargando datos...</div>
-      <div class="sort-hint">Toca los encabezados para ordenar</div>
+      <div class="sort-hint" id="desktopSortHint">Toca encabezados para ordenar</div>
     </div>
+
+    <!-- Mobile sort pills -->
+    <div class="mobile-sort" id="mobileSortBar">
+      <span class="mobile-sort-label">Ordenar:</span>
+      <span class="sort-pill" data-col="entidad">Entidad</span>
+      <span class="sort-pill" data-col="compra">Compra</span>
+      <span class="sort-pill" data-col="venta">Venta</span>
+      <span class="sort-pill" data-col="diferencial">Diferencial</span>
+    </div>
+
     <div id="tableContainer">
       <div class="loading-overlay">
         <div class="spinner"></div>
@@ -442,18 +607,21 @@
     </div>
   </div>
 
+  <!-- Footer -->
   <footer>
-    <div class="footer-text">
-      Datos en tiempo real desde: <a href="https://gee.bccr.fi.cr" target="_blank">gee.bccr.fi.cr</a>
-      · API: <a href="https://bccr-api.onrender.com/docs" target="_blank">bccr-api.onrender.com</a>
+    <div class="footer-inner">
+      <div class="footer-text">
+        Datos en tiempo real desde <a href="https://gee.bccr.fi.cr" target="_blank">gee.bccr.fi.cr</a><br>
+        API: <a href="https://bccr-api.onrender.com/docs" target="_blank">bccr-api.onrender.com</a>
+      </div>
+      <button class="btn-refresh" id="btnRefresh">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M23 4v6h-6M1 20v-6h6"/>
+          <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+        </svg>
+        Actualizar
+      </button>
     </div>
-    <button class="btn-refresh" id="btnRefresh">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <path d="M23 4v6h-6M1 20v-6h6"/>
-        <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
-      </svg>
-      Actualizar
-    </button>
   </footer>
 
 </div>
@@ -476,7 +644,58 @@
   };
 
   const fmt = n => n.toLocaleString('es-CR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const isMobile = () => window.innerWidth < 768;
 
+  // ── Filters collapsible ──
+  const filtersToggle = document.getElementById('filtersToggle');
+  const filtersBody   = document.getElementById('filtersBody');
+  const filtersArrow  = document.getElementById('filtersArrow');
+
+  // Open by default on desktop, closed on mobile
+  if (!isMobile()) {
+    filtersBody.classList.add('open');
+    filtersArrow.classList.add('open');
+    filtersToggle.setAttribute('aria-expanded', 'true');
+  }
+
+  filtersToggle.addEventListener('click', () => {
+    const isOpen = filtersBody.classList.toggle('open');
+    filtersArrow.classList.toggle('open', isOpen);
+    filtersToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  // Count active filters badge
+  function updateFiltersBadge() {
+    const active = [
+      document.getElementById('filterNombre').value,
+      document.getElementById('filterCategoria').value,
+      document.getElementById('filterCompraMin').value,
+      document.getElementById('filterVentaMax').value,
+    ].filter(v => v !== '').length;
+
+    const badge = document.getElementById('filtersBadge');
+    badge.textContent = active;
+    badge.classList.toggle('active', active > 0);
+  }
+
+  // ── Mobile sort pills ──
+  document.querySelectorAll('.sort-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const col = pill.dataset.col;
+      if (sortCol === col) {
+        sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        sortCol = col; sortDir = 'asc';
+      }
+      document.querySelectorAll('.sort-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      pill.textContent = pill.dataset.col.charAt(0).toUpperCase() + pill.dataset.col.slice(1)
+        + (sortDir === 'asc' ? ' ▲' : ' ▼');
+      renderTable();
+    });
+  });
+
+  // ── Data ──
   async function loadData() {
     document.getElementById('tableContainer').innerHTML =
       `<div class="loading-overlay"><div class="spinner"></div><div class="loading-text">Consultando el BCCR...</div></div>`;
@@ -499,22 +718,22 @@
       document.getElementById('valMinVenta').textContent  = '₡' + fmt(minV.venta);
       document.getElementById('subMinVenta').textContent  = minV.entidad.split(' ').slice(0,3).join(' ');
 
-      [0,1,2,3].forEach(i => setTimeout(() => document.getElementById('s'+i)?.classList.add('visible'), i*90));
+      [0,1,2,3].forEach(i => setTimeout(() => document.getElementById('s'+i)?.classList.add('visible'), i*80));
 
       const cats = [...new Set(allData.map(d => d.tipo_entidad).filter(Boolean))].sort();
       const sel = document.getElementById('filterCategoria');
       sel.innerHTML = '<option value="">Todas</option>';
-      cats.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; sel.appendChild(o); });
+      cats.forEach(c => { const o = document.createElement('option'); o.value=c; o.textContent=c; sel.appendChild(o); });
 
       document.getElementById('statusDot').style.cssText = 'background:var(--green);box-shadow:0 0 8px var(--green)';
       document.getElementById('statusText').textContent = 'En vivo · ' + new Date().toLocaleTimeString('es-CR');
-      renderTable();
 
+      renderTable();
     } catch {
       document.getElementById('tableContainer').innerHTML =
-        `<div class="error-box">⚠️ No se pudo cargar la información. Verifica tu conexión o intenta de nuevo.</div>`;
+        `<div class="error-box">⚠️ No se pudo cargar la información. Verifica tu conexión e intenta de nuevo.</div>`;
       document.getElementById('statusDot').style.cssText = 'background:#e09878';
-      document.getElementById('statusText').textContent = 'Error de conexión';
+      document.getElementById('statusText').textContent = 'Error';
     }
   }
 
@@ -536,7 +755,7 @@
     return [...data].sort((a,b) => {
       let va = a[sortCol], vb = b[sortCol];
       if (typeof va === 'string') { va = va.toLowerCase(); vb = vb.toLowerCase(); }
-      return sortDir === 'asc' ? (va < vb ? -1 : va > vb ? 1 : 0) : (va > vb ? -1 : va < vb ? 1 : 0);
+      return sortDir === 'asc' ? (va<vb?-1:va>vb?1:0) : (va>vb?-1:va<vb?1:0);
     });
   }
 
@@ -552,7 +771,7 @@
   function renderTable() {
     const filtered = getSorted(getFiltered());
     document.getElementById('resultsCount').innerHTML =
-      `Mostrando <strong>${filtered.length}</strong> de ${allData.length} entidades`;
+      `<strong>${filtered.length}</strong> de ${allData.length} entidades`;
 
     if (!filtered.length) {
       document.getElementById('tableContainer').innerHTML =
@@ -560,13 +779,14 @@
       return;
     }
 
+    // ── Desktop table ──
     const thead = cols.map(c => {
-      const cls = sortCol === c.key ? (sortDir === 'asc' ? 'sort-asc' : 'sort-desc') : '';
-      return `<th class="${cls}" data-col="${c.key}">${c.label}<span class="sort-icon"></span></th>`;
+      const cls = sortCol===c.key ? (sortDir==='asc'?'sort-asc':'sort-desc') : '';
+      return `<th class="${cls}" data-col="${c.key}">${c.label}<span class="si"></span></th>`;
     }).join('');
 
     const tbody = filtered.map((d,i) => `
-      <tr style="animation-delay:${i*20}ms">
+      <tr style="animation-delay:${i*18}ms">
         <td><span class="chip ${chipClass(d.tipo_entidad)}">${d.tipo_entidad||'—'}</span></td>
         <td class="td-entidad">${d.entidad}</td>
         <td><span class="num num-compra">₡${fmt(d.compra)}</span></td>
@@ -575,26 +795,66 @@
         <td class="td-fecha">${d.ultima_actualizacion||'—'}</td>
       </tr>`).join('');
 
-    document.getElementById('tableContainer').innerHTML =
-      `<div class="table-scroll"><table><thead><tr>${thead}</tr></thead><tbody>${tbody}</tbody></table></div>`;
+    // ── Mobile cards ──
+    const cards = filtered.map((d,i) => `
+      <div class="entity-card" style="animation-delay:${i*25}ms">
+        <div class="card-top">
+          <div class="card-name">${d.entidad}</div>
+          <span class="chip ${chipClass(d.tipo_entidad)}">${d.tipo_entidad||'—'}</span>
+        </div>
+        <div class="card-rates">
+          <div class="card-rate">
+            <span class="card-rate-label">Compra</span>
+            <span class="card-rate-value num-compra">₡${fmt(d.compra)}</span>
+          </div>
+          <div class="card-rate">
+            <span class="card-rate-label">Venta</span>
+            <span class="card-rate-value num-venta">₡${fmt(d.venta)}</span>
+          </div>
+          <div class="card-rate">
+            <span class="card-rate-label">Diferencial</span>
+            <span class="card-rate-value num-dif">${fmt(d.diferencial)}</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <span class="card-date">🕐 ${d.ultima_actualizacion||'—'}</span>
+        </div>
+      </div>`).join('');
+
+    document.getElementById('tableContainer').innerHTML = `
+      <div class="desktop-table">
+        <table>
+          <thead><tr>${thead}</tr></thead>
+          <tbody>${tbody}</tbody>
+        </table>
+      </div>
+      <div class="mobile-cards">${cards}</div>`;
 
     document.querySelectorAll('thead th').forEach(th =>
       th.addEventListener('click', () => {
         const col = th.dataset.col;
-        sortDir = sortCol === col ? (sortDir === 'asc' ? 'desc' : 'asc') : 'asc';
+        sortDir = sortCol===col ? (sortDir==='asc'?'desc':'asc') : 'asc';
         sortCol = col;
         renderTable();
       })
     );
   }
 
-  ['filterNombre','filterCategoria','filterCompraMin','filterVentaMax']
-    .forEach(id => document.getElementById(id).addEventListener('input', renderTable));
+  // Filter listeners
+  ['filterNombre','filterCategoria','filterCompraMin','filterVentaMax'].forEach(id =>
+    document.getElementById(id).addEventListener('input', () => { updateFiltersBadge(); renderTable(); })
+  );
 
   document.getElementById('btnReset').addEventListener('click', () => {
-    ['filterNombre','filterCompraMin','filterVentaMax'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('filterCategoria').value = '';
-    sortCol = null; renderTable();
+    ['filterNombre','filterCompraMin','filterVentaMax'].forEach(id => document.getElementById(id).value='');
+    document.getElementById('filterCategoria').value='';
+    sortCol=null;
+    document.querySelectorAll('.sort-pill').forEach(p => {
+      p.classList.remove('active');
+      p.textContent = p.dataset.col.charAt(0).toUpperCase() + p.dataset.col.slice(1);
+    });
+    updateFiltersBadge();
+    renderTable();
   });
 
   document.getElementById('btnRefresh').addEventListener('click', () => {
@@ -607,3 +867,4 @@
 </script>
 </body>
 </html>
+
