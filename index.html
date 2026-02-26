@@ -4,64 +4,609 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tipos de Cambio — BCCR</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy:    #0b1829;
-      --navy2:   #112240;
-      --navy3:   #1a3356;
-      --gold:    #c9a84c;
-      --gold2:   #e8c97a;
-      --cream:   #f5f0e8;
-      --text:    #e8e4dc;
-      --muted:   #8a9ab5;
-      --border:  rgba(201,168,76,0.18);
-      --glass:   rgba(17,34,64,0.7);
-      --red:     #e05c5c;
-      --green:   #4caf82;
+      --bg:        #fdf0f3;
+      --bg2:       #fae6eb;
+      --bg3:       #f5d5de;
+      --rose:      #e8a0b0;
+      --rose2:     #d4708a;
+      --rose3:     #c05070;
+      --petal:     #f9c5d1;
+      --blush:     #fce8ed;
+      --text:      #4a2030;
+      --text2:     #7a4558;
+      --muted:     #b07888;
+      --border:    rgba(212,112,138,0.2);
+      --glass:     rgba(253,240,243,0.75);
+      --green:     #7bbf9e;
+      --orange:    #e09878;
+      --white:     #fff8fa;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--navy);
+      font-family: 'Jost', sans-serif;
+      background: var(--bg);
       color: var(--text);
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* Background mesh */
     body::before {
       content: '';
       position: fixed; inset: 0;
       background:
-        radial-gradient(ellipse 80% 50% at 10% 0%, rgba(201,168,76,0.07) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 60% at 90% 100%, rgba(17,34,64,0.9) 0%, transparent 70%),
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 59px,
-          rgba(201,168,76,0.03) 60px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 59px,
-          rgba(201,168,76,0.03) 60px
-        );
-      pointer-events: none;
-      z-index: 0;
+        radial-gradient(ellipse 70% 60% at 0% 0%,    rgba(248,185,205,0.45) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 50% at 100% 100%, rgba(232,160,176,0.35) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 60% 20%,  rgba(253,220,230,0.3)  0%, transparent 50%);
+      pointer-events: none; z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(circle, rgba(192,80,112,0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none; z-index: 0;
     }
 
     .wrapper { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
     /* ── Header ── */
-    header {
-      padding: 48px 0 32px;
-      border-bottom: 1px solid var(--border);
+    header { padding: 52px 0 36px; border-bottom: 1px solid var(--border); margin-bottom: 40px; }
+
+    .header-inner {
+      display: flex; align-items: flex-end;
+      justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    }
+
+    .brand { display: flex; align-items: center; gap: 18px; }
+
+    .brand-icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--rose), var(--petal));
+      border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      box-shadow: 0 8px 32px rgba(212,112,138,0.3), 0 2px 8px rgba(212,112,138,0.2);
+      flex-shrink: 0;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(24px, 4vw, 40px);
+      font-weight: 600; line-height: 1.1; color: var(--text);
+    }
+
+    h1 span {
+      display: block;
+      font-family: 'Jost', sans-serif;
+      font-size: 12px; font-weight: 500;
+      color: var(--rose2);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .status-badge {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--muted);
+      padding: 9px 18px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: var(--white);
+      box-shadow: 0 2px 12px rgba(212,112,138,0.1);
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+    /* ── Stats ── */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px; margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 22px;
+      box-shadow: 0 4px 20px rgba(212,112,138,0.08);
+      opacity: 0; transform: translateY(14px);
+      transition: opacity 0.4s, transform 0.4s;
+    }
+
+    .stat-card.visible { opacity: 1; transform: translateY(0); }
+
+    .stat-card:hover {
+      box-shadow: 0 8px 32px rgba(212,112,138,0.16);
+      transform: translateY(-2px);
+      transition: all 0.2s;
+    }
+
+    .stat-label {
+      font-size: 11px; font-weight: 500; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 600; color: var(--rose2); line-height: 1;
+    }
+
+    .stat-sub { font-size: 12px; color: var(--muted); margin-top: 5px; }
+
+    /* ── Filters ── */
+    .filters-section {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px 26px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(212,112,138,0.07);
+    }
+
+    .filters-title {
+      font-size: 11px; font-weight: 500; color: var(--rose2);
+      text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px;
+    }
+
+    .filters-grid {
+      display: grid;
+      grid-template-columns: 2fr repeat(4, 1fr);
+      gap: 12px; align-items: end;
+    }
+
+    @media (max-width: 768px) { .filters-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .filters-grid { grid-template-columns: 1fr; } }
+
+    .filter-group label {
+      display: block; font-size: 11px; font-weight: 500; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 7px;
+    }
+
+    .filter-group input,
+    .filter-group select {
+      width: 100%; background: var(--bg);
+      border: 1px solid var(--border); border-radius: 10px;
+      color: var(--text); font-family: 'Jost', sans-serif;
+      font-size: 14px; padding: 10px 13px; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .filter-group input::placeholder { color: var(--muted); opacity: 0.6; }
+
+    .filter-group input:focus,
+    .filter-group select:focus {
+      border-color: var(--rose);
+      box-shadow: 0 0 0 3px rgba(212,112,138,0.15);
+      background: var(--white);
+    }
+
+    .filter-group select option { background: var(--white); color: var(--text); }
+
+    .btn-reset {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); font-family: 'Jost', sans-serif;
+      font-size: 13px; font-weight: 500;
+      padding: 10px 16px; border-radius: 10px;
+      cursor: pointer; transition: all 0.2s; white-space: nowrap;
+    }
+
+    .btn-reset:hover { border-color: var(--rose2); color: var(--rose2); background: var(--blush); }
+
+    /* ── Table ── */
+    .table-wrapper {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 18px; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(212,112,138,0.08);
+    }
+
+    .table-header-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px; border-bottom: 1px solid var(--border);
+      background: var(--blush); flex-wrap: wrap; gap: 12px;
+    }
+
+    .results-count { font-size: 13px; color: var(--muted); }
+    .results-count strong { color: var(--rose2); font-weight: 600; }
+    .sort-hint { font-size: 11px; color: var(--muted); opacity: 0.7; }
+
+    .table-scroll { overflow-x: auto; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+
+    thead th {
+      background: var(--bg2); padding: 13px 16px;
+      text-align: left; font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--rose2);
+      white-space: nowrap; cursor: pointer; user-select: none;
+      transition: background 0.2s;
+    }
+
+    thead th:hover { background: var(--bg3); }
+    thead th .sort-icon { margin-left: 5px; opacity: 0.4; font-size: 10px; }
+    thead th.sort-asc  .sort-icon::after { content: '▲'; opacity: 1; }
+    thead th.sort-desc .sort-icon::after { content: '▼'; opacity: 1; }
+    thead th:not(.sort-asc):not(.sort-desc) .sort-icon::after { content: '⇅'; }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(212,112,138,0.08);
+      transition: background 0.15s;
+      opacity: 0; animation: fadeRow 0.35s forwards;
+    }
+
+    @keyframes fadeRow { to { opacity: 1; } }
+
+    tbody tr:hover { background: var(--blush); }
+    tbody tr:last-child { border-bottom: none; }
+
+    td { padding: 13px 16px; vertical-align: middle; }
+    .td-entidad { font-weight: 500; color: var(--text); }
+
+    .chip {
+      display: inline-block; font-size: 11px; font-weight: 500;
+      padding: 4px 11px; border-radius: 100px; white-space: nowrap;
+    }
+
+    .chip-banco-publico  { background: rgba(123,191,158,0.15); color: #5a9e80; border: 1px solid rgba(123,191,158,0.35); }
+    .chip-banco-privado  { background: rgba(212,112,138,0.12); color: var(--rose2); border: 1px solid rgba(212,112,138,0.3); }
+    .chip-financiera     { background: rgba(160,140,200,0.12); color: #9070b8; border: 1px solid rgba(160,140,200,0.3); }
+    .chip-cooperativa    { background: rgba(224,152,120,0.12); color: #c07040; border: 1px solid rgba(224,152,120,0.3); }
+    .chip-mutual         { background: rgba(100,170,200,0.12); color: #4090b0; border: 1px solid rgba(100,170,200,0.3); }
+    .chip-casa-cambio    { background: rgba(240,180,100,0.12); color: #b08020; border: 1px solid rgba(240,180,100,0.3); }
+    .chip-puesto-bolsa   { background: rgba(180,140,200,0.12); color: #8050a0; border: 1px solid rgba(180,140,200,0.3); }
+    .chip-default        { background: rgba(176,120,136,0.1);  color: var(--muted); border: 1px solid var(--border); }
+
+    .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 600; letter-spacing: -0.01em;
+    }
+
+    .num-compra { color: #5a9e80; }
+    .num-venta  { color: #c07060; }
+    .num-dif    { color: var(--muted); font-size: 16px; font-weight: 400; }
+    .td-fecha   { font-size: 12px; color: var(--muted); white-space: nowrap; }
+
+    .empty-state { padding: 72px 24px; text-align: center; }
+    .empty-icon  { font-size: 44px; margin-bottom: 16px; opacity: 0.35; }
+    .empty-text  { color: var(--muted); font-size: 15px; }
+
+    .loading-overlay { padding: 80px 24px; text-align: center; }
+
+    .spinner {
+      width: 40px; height: 40px;
+      border: 3px solid var(--border); border-top-color: var(--rose2);
+      border-radius: 50%; animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-text { color: var(--muted); font-size: 14px; }
+
+    .error-box {
+      padding: 20px 24px; background: rgba(224,120,100,0.07);
+      border: 1px solid rgba(224,120,100,0.25); border-radius: 12px;
+      margin: 24px; color: #c07060; font-size: 14px;
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    footer {
+      padding: 32px 0 28px; margin-top: 40px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+
+    .footer-text { font-size: 12px; color: var(--muted); }
+    .footer-text a { color: var(--rose2); text-decoration: none; font-weight: 500; }
+    .footer-text a:hover { text-decoration: underline; }
+
+    .btn-refresh {
+      display: flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--rose2), var(--rose));
+      color: white; font-family: 'Jost', sans-serif;
+      font-size: 13px; font-weight: 600;
+      padding: 11px 22px; border: none; border-radius: 100px;
+      cursor: pointer; box-shadow: 0 4px 16px rgba(212,112,138,0.35);
+      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-refresh:hover { opacity: 0.92; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,112,138,0.4); }
+    .btn-refresh.spinning svg { animation: spin 0.8s linear infinite; }
+
+    .petal {
+      position: fixed; border-radius: 50% 0 50% 0;
+      pointer-events: none; z-index: 0;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0%   { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 0.5; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  for (let i = 0; i < 10; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    const r = (min,max) => min + Math.random()*(max-min);
+    p.style.cssText = `
+      left:${r(0,100)}%;
+      width:${r(8,16)}px; height:${r(12,20)}px;
+      animation-duration:${r(14,24)}s;
+      animation-delay:${r(0,20)}s;
+      background:rgba(${Math.floor(r(220,248))},${Math.floor(r(140,190))},${Math.floor(r(160,200))},${r(0.2,0.45)});
+    `;
+    document.body.appendChild(p);
+  }
+</script>
+
+<div class="wrapper">
+
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-icon">🌸</div>
+        <h1>
+          <span>Banco Central de Costa Rica</span>
+          Tipos de Cambio
+        </h1>
+      </div>
+      <div class="status-badge">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">Conectando...</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stat-card" id="s0">
+      <div class="stat-label">Fecha</div>
+      <div class="stat-value" id="valFecha">—</div>
+      <div class="stat-sub">Publicación BCCR</div>
+    </div>
+    <div class="stat-card" id="s1">
+      <div class="stat-label">Entidades</div>
+      <div class="stat-value" id="valTotal">—</div>
+      <div class="stat-sub">intermediarios cambiarios</div>
+    </div>
+    <div class="stat-card" id="s2">
+      <div class="stat-label">Mejor Compra</div>
+      <div class="stat-value" style="color:var(--green)" id="valMinCompra">—</div>
+      <div class="stat-sub" id="subMinCompra">—</div>
+    </div>
+    <div class="stat-card" id="s3">
+      <div class="stat-label">Menor Venta</div>
+      <div class="stat-value" style="color:var(--orange)" id="valMinVenta">—</div>
+      <div class="stat-sub" id="subMinVenta">—</div>
+    </div>
+  </div>
+
+  <div class="filters-section">
+    <div class="filters-title">🌷 Filtros</div>
+    <div class="filters-grid">
+      <div class="filter-group">
+        <label>Buscar entidad</label>
+        <input type="text" id="filterNombre" placeholder="Ej: Banco Nacional, BAC..."/>
+      </div>
+      <div class="filter-group">
+        <label>Categoría</label>
+        <select id="filterCategoria"><option value="">Todas</option></select>
+      </div>
+      <div class="filter-group">
+        <label>Compra mínima (₡)</label>
+        <input type="number" id="filterCompraMin" placeholder="Ej: 460"/>
+      </div>
+      <div class="filter-group">
+        <label>Venta máxima (₡)</label>
+        <input type="number" id="filterVentaMax" placeholder="Ej: 490"/>
+      </div>
+      <div class="filter-group">
+        <label>&nbsp;</label>
+        <button class="btn-reset" id="btnReset">✕ Limpiar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <div class="table-header-bar">
+      <div class="results-count" id="resultsCount">Cargando datos...</div>
+      <div class="sort-hint">Toca los encabezados para ordenar</div>
+    </div>
+    <div id="tableContainer">
+      <div class="loading-overlay">
+        <div class="spinner"></div>
+        <div class="loading-text">Consultando el BCCR...</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-text">
+      Datos en tiempo real desde <a href="https://gee.bccr.fi.cr" target="_blank">gee.bccr.fi.cr</a>
+      · API: <a href="https://bccr-api.onrender.com/docs" target="_blank">bccr-api.onrender.com</a>
+    </div>
+    <button class="btn-refresh" id="btnRefresh">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M23 4v6h-6M1 20v-6h6"/>
+        <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+      </svg>
+      Actualizar
+    </button>
+  </footer>
+
+</div>
+
+<script>
+  const API = 'https://bccr-api.onrender.com/tipos-de-cambio';
+  let allData = [], sortCol = null, sortDir = 'asc';
+
+  const chipClass = t => {
+    if (!t) return 'chip-default';
+    const s = t.toLowerCase();
+    if (s.includes('público'))    return 'chip-banco-publico';
+    if (s.includes('privado'))    return 'chip-banco-privado';
+    if (s.includes('financiera')) return 'chip-financiera';
+    if (s.includes('cooperat'))   return 'chip-cooperativa';
+    if (s.includes('mutual'))     return 'chip-mutual';
+    if (s.includes('casa'))       return 'chip-casa-cambio';
+    if (s.includes('bolsa'))      return 'chip-puesto-bolsa';
+    return 'chip-default';
+  };
+
+  const fmt = n => n.toLocaleString('es-CR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  async function loadData() {
+    document.getElementById('tableContainer').innerHTML =
+      `<div class="loading-overlay"><div class="spinner"></div><div class="loading-text">Consultando el BCCR...</div></div>`;
+    document.getElementById('statusDot').style.cssText = 'background:var(--rose);box-shadow:0 0 8px var(--rose)';
+    document.getElementById('statusText').textContent = 'Actualizando...';
+
+    try {
+      const res = await fetch(API);
+      if (!res.ok) throw new Error();
+      const json = await res.json();
+      allData = json.tipos_de_cambio || [];
+
+      document.getElementById('valFecha').textContent = json.fecha || '—';
+      document.getElementById('valTotal').textContent = allData.length;
+
+      const maxC = allData.reduce((a,b) => b.compra > a.compra ? b : a, allData[0]);
+      const minV = allData.reduce((a,b) => b.venta  < a.venta  ? b : a, allData[0]);
+      document.getElementById('valMinCompra').textContent = '₡' + fmt(maxC.compra);
+      document.getElementById('subMinCompra').textContent = maxC.entidad.split(' ').slice(0,3).join(' ');
+      document.getElementById('valMinVenta').textContent  = '₡' + fmt(minV.venta);
+      document.getElementById('subMinVenta').textContent  = minV.entidad.split(' ').slice(0,3).join(' ');
+
+      [0,1,2,3].forEach(i => setTimeout(() => document.getElementById('s'+i)?.classList.add('visible'), i*90));
+
+      const cats = [...new Set(allData.map(d => d.tipo_entidad).filter(Boolean))].sort();
+      const sel = document.getElementById('filterCategoria');
+      sel.innerHTML = '<option value="">Todas</option>';
+      cats.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; sel.appendChild(o); });
+
+      document.getElementById('statusDot').style.cssText = 'background:var(--green);box-shadow:0 0 8px var(--green)';
+      document.getElementById('statusText').textContent = 'En vivo · ' + new Date().toLocaleTimeString('es-CR');
+      renderTable();
+
+    } catch {
+      document.getElementById('tableContainer').innerHTML =
+        `<div class="error-box">⚠️ No se pudo cargar la información. Verifica tu conexión o intenta de nuevo.</div>`;
+      document.getElementById('statusDot').style.cssText = 'background:#e09878';
+      document.getElementById('statusText').textContent = 'Error de conexión';
+    }
+  }
+
+  function getFiltered() {
+    const nombre    = document.getElementById('filterNombre').value.toLowerCase();
+    const cat       = document.getElementById('filterCategoria').value;
+    const compraMin = parseFloat(document.getElementById('filterCompraMin').value) || 0;
+    const ventaMax  = parseFloat(document.getElementById('filterVentaMax').value) || Infinity;
+    return allData.filter(d =>
+      (!nombre    || d.entidad.toLowerCase().includes(nombre)) &&
+      (!cat       || d.tipo_entidad === cat) &&
+      (!compraMin || d.compra >= compraMin) &&
+      (ventaMax === Infinity || d.venta <= ventaMax)
+    );
+  }
+
+  function getSorted(data) {
+    if (!sortCol) return data;
+    return [...data].sort((a,b) => {
+      let va = a[sortCol], vb = b[sortCol];
+      if (typeof va === 'string') { va = va.toLowerCase(); vb = vb.toLowerCase(); }
+      return sortDir === 'asc' ? (va < vb ? -1 : va > vb ? 1 : 0) : (va > vb ? -1 : va < vb ? 1 : 0);
+    });
+  }
+
+  const cols = [
+    { key: 'tipo_entidad',         label: 'Categoría' },
+    { key: 'entidad',              label: 'Entidad' },
+    { key: 'compra',               label: 'Compra (₡)' },
+    { key: 'venta',                label: 'Venta (₡)' },
+    { key: 'diferencial',          label: 'Diferencial' },
+    { key: 'ultima_actualizacion', label: 'Actualización' },
+  ];
+
+  function renderTable() {
+    const filtered = getSorted(getFiltered());
+    document.getElementById('resultsCount').innerHTML =
+      `Mostrando <strong>${filtered.length}</strong> de ${allData.length} entidades`;
+
+    if (!filtered.length) {
+      document.getElementById('tableContainer').innerHTML =
+        `<div class="empty-state"><div class="empty-icon">🌸</div><div class="empty-text">No hay resultados para los filtros aplicados</div></div>`;
+      return;
+    }
+
+    const thead = cols.map(c => {
+      const cls = sortCol === c.key ? (sortDir === 'asc' ? 'sort-asc' : 'sort-desc') : '';
+      return `<th class="${cls}" data-col="${c.key}">${c.label}<span class="sort-icon"></span></th>`;
+    }).join('');
+
+    const tbody = filtered.map((d,i) => `
+      <tr style="animation-delay:${i*20}ms">
+        <td><span class="chip ${chipClass(d.tipo_entidad)}">${d.tipo_entidad||'—'}</span></td>
+        <td class="td-entidad">${d.entidad}</td>
+        <td><span class="num num-compra">₡${fmt(d.compra)}</span></td>
+        <td><span class="num num-venta">₡${fmt(d.venta)}</span></td>
+        <td><span class="num num-dif">${fmt(d.diferencial)}</span></td>
+        <td class="td-fecha">${d.ultima_actualizacion||'—'}</td>
+      </tr>`).join('');
+
+    document.getElementById('tableContainer').innerHTML =
+      `<div class="table-scroll"><table><thead><tr>${thead}</tr></thead><tbody>${tbody}</tbody></table></div>`;
+
+    document.querySelectorAll('thead th').forEach(th =>
+      th.addEventListener('click', () => {
+        const col = th.dataset.col;
+        sortDir = sortCol === col ? (sortDir === 'asc' ? 'desc' : 'asc') : 'asc';
+        sortCol = col;
+        renderTable();
+      })
+    );
+  }
+
+  ['filterNombre','filterCategoria','filterCompraMin','filterVentaMax']
+    .forEach(id => document.getElementById(id).addEventListener('input', renderTable));
+
+  document.getElementById('btnReset').addEventListener('click', () => {
+    ['filterNombre','filterCompraMin','filterVentaMax'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('filterCategoria').value = '';
+    sortCol = null; renderTable();
+  });
+
+  document.getElementById('btnRefresh').addEventListener('click', () => {
+    const btn = document.getElementById('btnRefresh');
+    btn.classList.add('spinning');
+    loadData().finally(() => btn.classList.remove('spinning'));
+  });
+
+  loadData();
+</script>
+</body>
+</html>
       margin-bottom: 40px;
     }
 
